@@ -13,16 +13,20 @@ return new class extends Migration
     {
         Schema::create('journals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('class_id')->constrained('classrooms');
-            $table->foreignId('subject_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('class_id')->constrained('classes');
+            $table->foreignId('subject_id')->constrained('subjects');
+
             $table->date('tanggal');
-            $table->string('pokok_bahasan')->nullable();
-            $table->string('sub_pokok')->nullable();
+
+            $table->string('materi')->nullable();
+            $table->string('sub_materi')->nullable();
             $table->string('metode')->nullable();
             $table->string('jam_ke')->nullable();
             $table->string('sumber')->nullable();
+
             $table->enum('keterangan', ['Tuntas', 'Tidak Tuntas'])->default('Tuntas');
+
             $table->timestamps();
         });
     }
