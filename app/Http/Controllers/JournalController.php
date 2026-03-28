@@ -10,11 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class JournalController extends Controller
 {
-
-
     public function index()
     {
-        $journals = Journal::with(['kelas', 'mapel'])->get();
+        $journals = Journal::with(['mapel', 'classes'])
+            ->orderBy('tanggal', 'desc')
+            ->paginate(10);
+
         return view('journals.index', compact('journals'));
     }
 
